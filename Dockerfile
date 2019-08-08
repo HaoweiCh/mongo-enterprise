@@ -19,6 +19,9 @@ RUN set -eux; \
 ENV GOSU_VERSION 1.11
 # grab "js-yaml" for parsing mongod's YAML config files (https://github.com/nodeca/js-yaml/releases)
 ENV JSYAML_VERSION 3.13.0
+# Proxy
+ENV http_proxy http://192.168.41.100:1086/
+ENV https_proxy http://192.168.41.100:1086/
 
 RUN set -ex; \
 	\
@@ -61,7 +64,7 @@ ENV GPG_KEYS 9DA31620334BD75D9DCB49F368818C72E52529D4
 RUN set -ex; \
 	export GNUPGHOME="$(mktemp -d)"; \
 	for key in $GPG_KEYS; do \
-		gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+		gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --keyserver-options http-proxy=http://192.168.41.1:1086 --recv-keys "$key"; \
 	done; \
 	gpg --batch --export $GPG_KEYS > /etc/apt/trusted.gpg.d/mongodb.gpg; \
 	command -v gpgconf && gpgconf --kill all || :; \

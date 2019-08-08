@@ -4,11 +4,14 @@
 * https://github.com/docker-library/mongo
 
 ## 1. 拉取官方 Dockerfile
+> 制作镜像只需要 官方的 Dockerfile 和 docker-entrypoint.sh 两个文件
 
 ```bash
 export MONGODB_VERSION=4.0
 curl -O --remote-name-all https://raw.githubusercontent.com/docker-library/mongo/master/$MONGODB_VERSION/{Dockerfile,docker-entrypoint.sh}
 ```
+
+修改环境变量，使用代理，解决因为网络的卡顿
 
 ## 2. 制作本地镜像
 
