@@ -37,3 +37,23 @@ docker push $DOCKER_USERNAME/mongo-enterprise:$MONGODB_VERSION
 ## 4. 使用， 
 
 借鉴 docker-compose.yml
+
+```bash
+docker-compose up
+```
+
+### replica set 需要初始化
+> * https://docs.mongodb.com/manual/tutorial/deploy-replica-set/#initiate-the-replica-set
+
+```bash
+docker exec -it mongo_db mongo
+```
+
+```js
+rs.initiate( {
+   _id : "singleton",
+   members: [
+       { _id: 0, host: "127.0.0.1:27017" },
+   ]
+})
+```

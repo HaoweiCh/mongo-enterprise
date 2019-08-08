@@ -1,0 +1,11 @@
+version: "3"
+services:
+  mongo_db:
+    container_name: "mongo_db"
+    image: 'heawercher/mongo-enterprise:4.0'
+    ports:
+    - "27017:27017"
+    volumes:
+    - ./files/mongo_db:/data/db
+    - ./files/mongo_conf:/data/configdb
+    command: "mongod --replSet singleton --oplogSize 10000"
